@@ -101,6 +101,18 @@ notify the owner that the system goes live next session. If NOT clean,
 stay in shadow, fix, and repeat the next day. Only the agent-after-review
 or the owner flips this flag — never flip it mid-day.
 
+## Step 6.6 — First-live-cycle validation (one-time gate)
+
+If `state/account_state.json` has `"first_live_cycle_done": false`: this
+cycle runs the FULL runbook — real data, real decisions, journal rows —
+but places NO orders, exactly as if in shadow mode. At the end of the
+cycle, if every universe symbol either parsed cleanly or was skipped for
+a structural reason (never a crash, parse error, or malformed response),
+set the flag to true and commit. Entries are live from the NEXT cycle.
+If anything failed to parse, leave the flag false, report the problem,
+and repeat validation next cycle. One clean cycle is the price of the
+first real order — agreed with the owner Jul 11.
+
 ## Step 7 — Execute entry (exact order; LIVE mode only)
 
 1. `review_equity_order` then `place_equity_order`: buy `shares` at market,

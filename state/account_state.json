@@ -1,6 +1,7 @@
 {
   "account_number": "995042041",
   "mode": "live",
+  "first_live_cycle_done": false,
   "equity": 150.0,
   "settled_cash": 150.0,
   "unsettled_cash": 0.0,
