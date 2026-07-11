@@ -82,7 +82,26 @@ For each universe symbol not benched:
 5. On `"action": "enter"`: take the FIRST qualifying setup only
    (Tier 1 beats Tier 2 if the same cycle surfaces both).
 
-## Step 7 — Execute entry (exact order)
+## Step 6.5 — Shadow mode gate
+
+`circuit_breaker.py check` reports `mode`. If `mode` is `"shadow"` (or
+missing — missing means shadow, fail closed):
+- Run every step of this runbook normally EXCEPT no orders are ever sent
+  to the broker (no place, no cancel).
+- A qualifying entry is logged to `state/trade_log.json` with
+  `"notes": "SHADOW — no order placed"`, points 0, plus the full decision
+  payload (shares, stop, TP, tier). It does NOT count toward breakers.
+- Shadow rows are for verifying data plumbing and decision quality only.
+
+**Go-live protocol:** after the 2:30 PM CT scan on the first shadow day,
+review the day: bars parsed clean on every symbol, quotes fresh, no
+crashes, decisions sane. If clean, run
+`python3 strategy/circuit_breaker.py set-mode --mode live`, commit, and
+notify the owner that the system goes live next session. If NOT clean,
+stay in shadow, fix, and repeat the next day. Only the agent-after-review
+or the owner flips this flag — never flip it mid-day.
+
+## Step 7 — Execute entry (exact order; LIVE mode only)
 
 1. `review_equity_order` then `place_equity_order`: buy `shares` at market,
    account 995042041, regular hours only.

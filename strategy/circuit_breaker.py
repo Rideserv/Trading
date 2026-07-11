@@ -90,7 +90,8 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("command", choices=["check", "record-result", "set-equity",
                                        "settle-cash", "spend-cash",
-                                       "add-unsettled"])
+                                       "add-unsettled", "set-mode"])
+    p.add_argument("--mode", choices=["shadow", "live"])
     p.add_argument("--outcome", choices=["win", "loss", "flat"])
     p.add_argument("--symbol")
     p.add_argument("--equity", type=float)
@@ -107,6 +108,7 @@ def main():
         print(json.dumps({
             "trading_allowed": allowed,
             "reason": reason,
+            "mode": state.get("mode", "shadow"),  # missing mode = shadow
             "benched_symbols": sorted(benched),
             "consecutive_losses": state.get("consecutive_losses", 0),
             "equity": state.get("equity"),
@@ -136,6 +138,11 @@ def main():
     elif args.command == "add-unsettled":
         state["unsettled_cash"] = round(
             state.get("unsettled_cash", 0) + args.amount, 2)
+        save_state(state)
+    elif args.command == "set-mode":
+        if not args.mode:
+            fail_closed("set-mode requires --mode shadow|live")
+        state["mode"] = args.mode
         save_state(state)
 
     print(json.dumps(state, indent=2))
