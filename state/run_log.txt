@@ -1,1 +1,2 @@
 2026-07-13T13:26:29Z | flat | pre-market brief: breaker clear, mode=live | PROBLEM: RobinHood connector enabledInChat=false on scheduled wake-up — no broker access
+2026-07-13T14:37:17Z | flat | 9:30 validation cycle: no broker access (RobinHood connector still disabled in chat, same as 8:25 report) | breaker clear, mode=live
