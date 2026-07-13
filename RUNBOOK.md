@@ -75,9 +75,12 @@ For each universe symbol not benched:
    outside $2-$30.
 2. Cheap pre-filter: skip if price <= prior 20-day high (no breakout, no
    need for full bars).
-3. Otherwise fetch 21+ daily bars (`get_equity_historicals`), ascending,
-   today's partial bar last. Build the evaluate payload with CURRENT
-   equity and settled_cash from state.
+3. Otherwise fetch 21+ daily bars (`get_equity_historicals`, interval
+   "day") and convert the raw response with
+   `python3 strategy/rh_adapter.py bars` — never hand-map fields. If the
+   adapter raises, skip the symbol this cycle. Append today's partial bar
+   (from the quote + today's cumulative volume) last, then build the
+   evaluate payload with CURRENT equity and settled_cash from state.
 4. `python3 strategy/box_scan.py evaluate < payload.json`
 5. On `"action": "enter"`: take the FIRST qualifying setup only
    (Tier 1 beats Tier 2 if the same cycle surfaces both).
