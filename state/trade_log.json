@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "symbol": "PLUG",
+    "action": "entry",
+    "price": 2.22,
+    "shares": 22.522522,
+    "timestamp": "2026-07-13T14:28:58Z",
+    "notes": "MANUAL — placed by owner directly in Robinhood app (placed_agent=user), not by this system. Adopted into journal via reconciliation on 2026-07-14. No valid box existed at entry (20-day range 28% of top, exceeds 25% tightness ceiling) — does not qualify as a box_breakout setup.",
+    "points": 0,
+    "points_reason": "excluded from circuit breaker — manual trade, not a system-generated setup",
+    "tier": null,
+    "setup_type": "manual",
+    "category": "energy_hydrogen"
+  },
+  {
+    "symbol": "PLUG",
+    "action": "exit",
+    "price": 2.2601,
+    "shares": 22.522522,
+    "timestamp": "2026-07-14T16:52:48Z",
+    "notes": "MANUAL position closed on owner instruction (order id 6a56695f-eeea-4e82-8776-132c8382b3ec, placed_agent=agentic). No box structure to manage against; owner chose to close rather than set a support-based stop. Realized ~+$0.91 vs $50.00 cost basis.",
+    "points": 0,
+    "points_reason": "excluded from circuit breaker — manual trade, not a system-generated setup",
+    "tier": null,
+    "setup_type": "manual",
+    "category": "energy_hydrogen"
+  }
+]

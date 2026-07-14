@@ -32,14 +32,39 @@ Note `benched_symbols` — exclude them from Step 6.
 ## Step 2 — Reconcile (broker is source of truth)
 
 - `get_equity_orders` + `get_equity_positions` + `get_portfolio` for 995042041.
-- Update `state/account_state.json` equity via `set-equity` (use portfolio
-  total_value).
+- `python3 strategy/circuit_breaker.py sync --equity <portfolio.total_value>
+  --buying-power <portfolio.buying_power.buying_power>` — ALWAYS, every
+  cycle, using live numbers only. This is the account's sole source of
+  spendable cash; nothing is tracked internally between cycles, because an
+  owner trading manually in parallel (as happened Jul 13-14, 2026) makes any
+  internally-tracked ledger drift from reality within one cycle. Robinhood
+  already computes T+1 settlement correctly — just read its answer.
 - Cross-check `state/trade_log.json`: any 'entry' row without a matching
   broker fill -> add note "VOID", points 0.
 - Any position closed since last run (stop filled): log the 'exit' row with
   the real fill price, then `record-result` with win/loss/flat and the symbol.
-- T+1 settlement: any sale that happened on a prior trading day ->
-  `settle-cash --amount <proceeds>`.
+- **Untracked position check:** if `get_equity_positions` shows a position
+  with NO matching open 'entry' row in the journal (a manual trade placed
+  directly in the broker app, or anything else outside this system), do NOT
+  ignore it and do NOT silently manage it:
+  1. Log it into `trade_log.json` immediately as an 'entry' row, `setup_type:
+     "manual"`, `tier: null`, a note identifying it as adopted-via-
+     reconciliation, and `points: 0` / excluded from circuit-breaker scoring
+     (it isn't a system-generated setup, win or lose).
+  2. Check whether it already has a live protective stop. If yes, leave it
+     and proceed to Step 4 management using that stop.
+  3. If no stop exists, do NOT place one unilaterally — try `compute_box` on
+     its symbol first; if a valid box exists, propose that box's bottom as
+     the stop. If no valid box exists (as with PLUG on Jul 14 — a clear
+     downtrend, no qualifying structure), propose a stop just under the
+     nearest recent swing low instead. Either way, **surface the specific
+     proposed stop order to the owner and wait for explicit confirmation**
+     before placing it — this is a judgment call the automation doesn't get
+     to make silently with real money, unlike a system-generated setup where
+     the stop is mechanical from entry.
+  4. Until confirmed, treat the position as held-but-unmanaged: skip Step 6
+     (one position open) but do not compute TP/time-stop/early-lock against
+     a stop that doesn't exist yet.
 
 ## Step 3 — Verify the stop (fire alarm check)
 
@@ -56,17 +81,20 @@ manage payload from the journal row and run:
 
 - `take_profit` / `time_exit`: cancel the GTC stop FIRST (`cancel_equity_order`),
   confirm cancelled, then sell all shares at market. Log the exit row
-  immediately. `add-unsettled` the proceeds. `record-result`.
+  immediately, then `record-result` (skip record-result for `setup_type:
+  "manual"` rows — they don't count toward the breaker).
 - `raise_stop`: cancel stop, place new GTC stop at `new_stop`. Update the
   journal row's stop_price. Never lower a stop. Ever.
 - `hold`: nothing. No notification.
 
 While a position is open, skip Step 6 (one position at a time).
 
-## Step 5 — Settled cash gate
+## Step 5 — Buying power gate
 
-Entries require settled cash >= cost. `spend-cash` enforces this and fails
-closed. Never buy with unsettled funds.
+Entries require cost <= the `buying_power` value synced in Step 2 (live from
+the broker this cycle — never a stored or estimated figure). If a manual
+trade or anything else moved cash since Step 2, re-sync before sizing rather
+than trusting a number from earlier in the cycle.
 
 ## Step 6 — Entry scan (only if flat and Steps 1-5 clear)
 
@@ -80,7 +108,8 @@ For each universe symbol not benched:
    `python3 strategy/rh_adapter.py bars` — never hand-map fields. If the
    adapter raises, skip the symbol this cycle. Append today's partial bar
    (from the quote + today's cumulative volume) last, then build the
-   evaluate payload with CURRENT equity and settled_cash from state.
+   evaluate payload with CURRENT equity and buying_power from state (the
+   values just synced in Step 2).
 4. `python3 strategy/box_scan.py evaluate < payload.json`
 5. On `"action": "enter"`: take the FIRST qualifying setup only
    (Tier 1 beats Tier 2 if the same cycle surfaces both).
@@ -122,7 +151,8 @@ first real order — agreed with the owner Jul 11.
    account 995042041, regular hours only.
 2. Confirm the fill (`get_equity_orders`). No fill within the cycle ->
    cancel, log VOID, done.
-3. `spend-cash --amount <fill cost>`.
+3. Re-sync (`circuit_breaker.py sync`) with the post-fill live portfolio —
+   never assume the fill cost against a stale buying_power figure.
 4. Place GTC stop: sell all shares, stop price = `stop_price` from the
    evaluate output. CONFIRM it's live. If the stop order is rejected,
    sell the position back at market immediately — never hold unprotected

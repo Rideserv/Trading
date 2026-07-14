@@ -2,12 +2,12 @@
   "account_number": "995042041",
   "mode": "live",
   "first_live_cycle_done": false,
-  "equity": 150.0,
-  "settled_cash": 150.0,
-  "unsettled_cash": 0.0,
+  "equity": 150.73,
+  "buying_power": 99.83,
+  "buying_power_synced_at": "2026-07-14T16:56:14.392484Z",
   "consecutive_losses": 0,
   "suspended_until": null,
   "drawdown_stop": false,
   "bench": {},
-  "last_reconciled": null
+  "last_reconciled": "2026-07-14T16:53:00Z"
 }

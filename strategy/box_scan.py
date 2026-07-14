@@ -13,7 +13,7 @@ evaluate input JSON:
     {
       "symbol": "PLUG",
       "equity": 150.0,
-      "settled_cash": 150.0,
+      "buying_power": 150.0,  # from live get_portfolio, not tracked internally
       "price": 4.31,              # live quote
       "quote_age_seconds": 12,
       "bars": [                    # DAILY bars, ascending; last = today (partial)
@@ -113,7 +113,7 @@ def compute_box(completed_bars):
     }, None
 
 
-def size_position(equity, settled_cash, entry_price, stop_price):
+def size_position(equity, buying_power, entry_price, stop_price):
     """Whole-share sizing. Returns (shares, reject_reason)."""
     stop_distance = entry_price - stop_price
     if stop_distance <= 0:
@@ -125,17 +125,17 @@ def size_position(equity, settled_cash, entry_price, stop_price):
         else:
             return 0, (f"one share risks ${stop_distance:.2f} "
                        f"(> {RISK_CEILING:.0%} of equity ${equity:.2f})")
-    if shares * entry_price > settled_cash:
-        shares = math.floor(settled_cash / entry_price)
+    if shares * entry_price > buying_power:
+        shares = math.floor(buying_power / entry_price)
     if shares == 0:
-        return 0, "insufficient settled cash for one share"
+        return 0, "insufficient buying power for one share"
     return shares, None
 
 
 def evaluate(payload):
     symbol = payload.get("symbol", "?")
     equity = float(payload["equity"])
-    settled_cash = float(payload["settled_cash"])
+    buying_power = float(payload["buying_power"])
     price = float(payload["price"])
     bars = payload["bars"]
 
@@ -179,7 +179,7 @@ def evaluate(payload):
     tightness = box["height"] / box["top"]
     tier = 1 if (vol_ratio >= TIER1_VOL_MULT and tightness <= TIER1_TIGHTNESS) else 2
 
-    shares, reject = size_position(equity, settled_cash, price, box["bottom"])
+    shares, reject = size_position(equity, buying_power, price, box["bottom"])
     if reject:
         return skip(reject, symbol=symbol)
 

@@ -1,19 +1,24 @@
 #!/usr/bin/env python3
-"""Circuit breaker + settlement state for Box Swing v1.0.
+"""Circuit breaker + account state for Box Swing v1.0.
 
 Reads/writes state/account_state.json. FAIL CLOSED: any error reading
 state means trading is blocked. The agent runs `check` at the top of
 every scan cycle and must stop immediately unless it prints
 {"trading_allowed": true}.
 
+Cash is NOT tracked internally. An owner trading manually in parallel
+(as happened Jul 13-14, 2026) makes any internally-tracked settled/
+unsettled ledger drift from reality. Instead, `sync` records the live
+`buying_power` figure pulled fresh from get_portfolio every cycle —
+Robinhood already computes T+1 settlement correctly, so we just read
+its answer rather than re-deriving it ourselves.
+
 CLI:
     python3 circuit_breaker.py check [--today YYYY-MM-DD]
     python3 circuit_breaker.py record-result --outcome win|loss|flat \
         --symbol SYM [--today YYYY-MM-DD]
-    python3 circuit_breaker.py set-equity --equity 150.00
-    python3 circuit_breaker.py settle-cash --amount 12.34   # T+1 arrival
-    python3 circuit_breaker.py spend-cash --amount 12.34    # on a buy fill
-    python3 circuit_breaker.py add-unsettled --amount 12.34 # on a sell fill
+    python3 circuit_breaker.py sync --equity 150.73 --buying-power 99.83
+    python3 circuit_breaker.py set-mode --mode shadow|live
 """
 
 import argparse
@@ -88,14 +93,13 @@ def record_result(state, outcome, symbol, today):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("command", choices=["check", "record-result", "set-equity",
-                                       "settle-cash", "spend-cash",
-                                       "add-unsettled", "set-mode"])
+    p.add_argument("command", choices=["check", "record-result", "sync",
+                                       "set-mode"])
     p.add_argument("--mode", choices=["shadow", "live"])
     p.add_argument("--outcome", choices=["win", "loss", "flat"])
     p.add_argument("--symbol")
     p.add_argument("--equity", type=float)
-    p.add_argument("--amount", type=float)
+    p.add_argument("--buying-power", type=float, dest="buying_power")
     p.add_argument("--today", default=date.today().isoformat())
     args = p.parse_args()
 
@@ -112,8 +116,9 @@ def main():
             "benched_symbols": sorted(benched),
             "consecutive_losses": state.get("consecutive_losses", 0),
             "equity": state.get("equity"),
-            "settled_cash": state.get("settled_cash"),
-            "unsettled_cash": state.get("unsettled_cash", 0),
+            "buying_power": state.get("buying_power"),
+            "buying_power_synced_at": state.get("buying_power_synced_at"),
+            "first_live_cycle_done": state.get("first_live_cycle_done", False),
         }, indent=2))
         sys.exit(0 if allowed else 1)
 
@@ -121,23 +126,14 @@ def main():
         if not args.outcome or not args.symbol:
             fail_closed("record-result requires --outcome and --symbol")
         record_result(state, args.outcome, args.symbol, args.today)
-    elif args.command == "set-equity":
+    elif args.command == "sync":
+        if args.equity is None or args.buying_power is None:
+            fail_closed("sync requires --equity and --buying-power (live, "
+                       "from get_portfolio — never estimated)")
         state["equity"] = args.equity
-        save_state(state)
-    elif args.command == "settle-cash":
-        state["unsettled_cash"] = max(
-            0.0, round(state.get("unsettled_cash", 0) - args.amount, 2))
-        state["settled_cash"] = round(
-            state.get("settled_cash", 0) + args.amount, 2)
-        save_state(state)
-    elif args.command == "spend-cash":
-        if args.amount > state.get("settled_cash", 0) + 0.005:
-            fail_closed("attempted to spend more than settled cash")
-        state["settled_cash"] = round(state["settled_cash"] - args.amount, 2)
-        save_state(state)
-    elif args.command == "add-unsettled":
-        state["unsettled_cash"] = round(
-            state.get("unsettled_cash", 0) + args.amount, 2)
+        state["buying_power"] = args.buying_power
+        state["buying_power_synced_at"] = (
+            __import__("datetime").datetime.utcnow().isoformat() + "Z")
         save_state(state)
     elif args.command == "set-mode":
         if not args.mode:

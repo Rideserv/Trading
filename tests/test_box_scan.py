@@ -35,7 +35,7 @@ def eval_payload(**overrides):
     payload = {
         "symbol": "TEST",
         "equity": 150.0,
-        "settled_cash": 150.0,
+        "buying_power": 150.0,
         "price": 11.20,          # above box top of 11.0
         "quote_age_seconds": 10,
         "bars": make_bars(),
@@ -73,10 +73,10 @@ class TestEvaluate(unittest.TestCase):
         self.assertEqual(result["shares"], 1)
 
     def test_skip_when_risk_exceeds_ceiling(self):
-        p = eval_payload(equity=60.0, settled_cash=60.0)
+        p = eval_payload(equity=60.0, buying_power=60.0)
         # stop distance 1.20 > 5% of 60 = $3.. wait 1.2 < 3 -> shares=1 ok.
         # force it: tiny equity
-        p = eval_payload(equity=20.0, settled_cash=20.0)
+        p = eval_payload(equity=20.0, buying_power=20.0)
         # 2% = $0.40 -> 0 shares; distance 1.20 > 5% of 20 = $1.00 -> skip
         result = box_scan.evaluate(p)
         self.assertEqual(result["action"], "skip")
