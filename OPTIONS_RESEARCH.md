@@ -1,12 +1,39 @@
-# Options Overlay — Research Track (NOT LIVE)
+# Options Overlay — Research Track (CODE WRITTEN, NOT WIRED TO LIVE ORDERS)
 
-## Status: blocked on Robinhood approval, research only
+## Status: 2026-07-14 — approval cleared, code built and tested, still gated
 
-Account 995042041 ("Agentic") has `option_level: ""` — options are not
-approved on it. This is a Robinhood suitability decision the owner makes
-directly (their own questionnaire), not something granted by this system.
-Nothing in this document trades real money. It exists so the design is
-ready the day approval clears, instead of being improvised then.
+Account 995042041 ("Agentic") option approval cleared same-day
+(`option_level: "option_level_2"`, confirmed via `get_accounts`). Code
+now exists at `strategy/option_scan.py` (contract selection, sizing,
+manage/exit) with 19 passing unit tests in `tests/test_option_scan.py`.
+
+**It is not wired into the live runbook and places no real orders.**
+Approval clearing is one of two gates from the original design — the
+second, a paper-validation phase, is now MORE clearly needed than
+originally thought, because of a real finding below. Building the code
+was the easy part; proving it against real market microstructure is the
+part that was always going to take longer, and the first real check
+already surfaced why.
+
+## Live finding, 2026-07-14: the design's own liquidity assumptions failed on real data
+
+Pulled the actual SOUN Aug 7 2026 chain (24 DTE, underlying ~$6.74) via
+`get_option_quotes`. Both the 7.0 and 7.5 strikes — the ones nearest the
+money — came back with:
+- **Deltas of 0.491 and 0.371** — both below the 0.60-0.70 target window
+- **Spreads of 16.8% and 20.3% of mid** — both above the 10% floor
+
+Neither contract would have qualified for entry under this module's own
+rules. This is not a bug; `option_scan.py`'s test suite asserts this
+result directly (`test_real_chain_has_no_qualifying_contract`) rather
+than hiding it behind a fabricated passing fixture. The honest read: a
+$6-7 stock's options chain may simply be too thin/wide for a 0.60-0.70
+delta, sub-10%-spread rule to ever fire in practice — the rule may need
+loosening (wider spread tolerance, wider delta band) or the strategy may
+need to restrict itself to higher-priced, more liquid underlyings than
+the current $2-$30 equity universe implies. Not resolved yet; this is
+exactly what a paper-validation phase across multiple real chains, not
+one spot-check, needs to determine before real premium is risked on it.
 
 Confirmed real infrastructure (read-only market data works today,
 independent of option_level): `get_option_chains` for SOUN returned live
@@ -98,8 +125,11 @@ if cost > buying_power: skip                 # never partial-size an
 
 ## What happens next
 
-Nothing, automatically. This document is picked up and built into
-`strategy/option_scan.py` (mirroring `box_scan.py`'s structure) only once
-option approval clears AND the owner asks to proceed — the same
-confirm-before-real-money discipline that governs every other decision in
-this system.
+`strategy/option_scan.py` exists and is unit-tested against both real
+and synthetic contract data. Still needed before any real premium is
+risked: a genuine paper-validation phase (checking multiple real chains
+across the universe, tuning the delta/spread rules against what actually
+exists rather than what seemed reasonable on paper) and explicit owner
+sign-off after that phase — the same confirm-before-real-money discipline
+that governs every other decision in this system. Approval clearing
+today does not skip this; it's the reason this phase can start.
