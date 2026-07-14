@@ -5,3 +5,4 @@
 2026-07-13T17:34:58Z | flat | scheduled scan cycle: no broker access (RobinHood connector still disabled in chat, unchanged) | breaker clear, mode=live
 2026-07-13T18:34:55Z | flat | scheduled scan cycle: no broker access (RobinHood connector still disabled in chat, unchanged) | breaker clear, mode=live
 2026-07-13T19:34:54Z | flat | scheduled scan cycle: no broker access (RobinHood connector still disabled in chat, unchanged) | breaker clear, mode=live
+2026-07-14T13:25:40Z | flat | pre-market brief Jul 14: breaker clear, mode=live | PROBLEM: RobinHood connector installState=unknown (changed from connected=true), enabledInChat still false
