@@ -33,3 +33,4 @@
 2026-07-17T17:34:31Z | flat | scheduled scan cycle: no broker access (RobinHood connected but enabledInChat=false, unchanged) | breaker clear, mode=live
 2026-07-17T18:34:52Z | flat | scheduled scan cycle: no broker access (RobinHood connected but enabledInChat=false, unchanged) | breaker clear, mode=live
 2026-07-17T19:35:05Z | flat | scheduled scan cycle: no broker access (RobinHood connected but enabledInChat=false, unchanged) | breaker clear, mode=live
+2026-07-20T13:26:15Z | flat | pre-market brief: no broker access (RobinHood installState=unknown this morning, enabledInChat=false — typical morning transient, not a new problem) | breaker clear, mode=live
