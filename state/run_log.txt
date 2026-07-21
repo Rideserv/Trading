@@ -42,3 +42,4 @@
 2026-07-20T19:34:58Z | flat | scheduled scan cycle: no broker access (RobinHood installState=unknown, enabledInChat=false, unchanged) | breaker clear, mode=live
 2026-07-21T13:26:25Z | flat | pre-market brief: no broker access — RobinHood installState=unknown has now persisted continuously since 2026-07-20T13:26 (24h+, spanned all of Jul 20 without resolving) — notifying owner, this differs from prior self-resolving morning blips | breaker clear, mode=live
 2026-07-21T14:34:51Z | flat | scheduled scan cycle: no broker access (RobinHood installState back to connected, enabledInChat still false — the unknown state from Jul 20-21 has cleared) | breaker clear, mode=live
+2026-07-21T15:35:02Z | flat | scheduled scan cycle: no broker access (RobinHood connected but enabledInChat=false, unchanged) | breaker clear, mode=live
