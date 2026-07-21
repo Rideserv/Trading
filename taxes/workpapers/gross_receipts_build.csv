@@ -1,0 +1,11 @@
+source,period_covered,gross_amount,status,supporting_doc,notes
+Stripe,Jan-Dec 2025,36327.78,confirmed,1099-K (Stripe TIN 270465600),"Report gross; deduct ~5004.43 fees/refunds separately; reconcile 842.00 gap vs books (payout timing)"
+eBay / Wheel N Deal,Feb-Dec 2025,2899.41,confirmed,1099-K (eBay),"Was missing from books entirely; pull eBay fee report to deduct selling fees"
+Sonya Drottar (Cash App),7 months only,22738.01,partial,Cash App statements,"Full year pending Jan-Apr + Jul statements; DJD 1099-NEC 15542.20 is overlap subset — see djd_sonya_reconciliation.csv"
+Chelsia Taylor (Cash App),7 months only,500.52,partial,Cash App statements,
+Tammy Taylor (Cash App),7 months only,210.02,partial,Cash App statements,
+Cash App missing months,Jan-Apr + Jul 2025,,pending,statements to download,"Both income and expenses will move"
+Mercury other deposits,Oct 2025,,pending,statement to download,"Verify no uncategorized business deposits"
+State Farm payout,2025,2084.57,excluded-pending,claim docs,"Not ordinary income; net against repair costs and vehicle basis before finalizing exclusion"
+Stripe Capital proceeds,2025,7700.00,excluded,loan agreement,"Financing — never income; interest portion deductible per amortization schedule"
+TOTAL FLOOR,,62675.74,,,"Stripe + eBay + Cash App 7-month; must exceed 1099 match total 54769.39 — it does"

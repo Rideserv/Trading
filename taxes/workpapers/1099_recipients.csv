@@ -1,0 +1,5 @@
+recipient,form,box,amount_partial_year,amount_full_year,w9_requested,w9_received,tin_on_file,entity_type_per_w9,address_confirmed,filed_date,notes
+Steve Mikola,1099-NEC,1,8276.96,,2026-07-21,,,,,,"Critical path — file by Jul 31; correct later if full-year total differs"
+Caleb Sims,1099-MISC,1 (Rents),3450.55,,2026-07-21,,,,,,"Skip only if W-9 shows S-corp/C-corp"
+David/Mclaughlin,1099-MISC,1 (Rents/equip),2249.50,,,,,,,,"Hold — confirm full-year total > $600 and unincorporated status first"
+TBD from 13175.51 bucket,1099-NEC,1,,,,,,,,,"Any newly identified payee over $600 from contract-labor reconciliation"
