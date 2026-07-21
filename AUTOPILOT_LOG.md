@@ -25,3 +25,20 @@ entries at the bottom. Every scheduled run appends here and pushes.
   2%/5% risk rules ⇒ roughly $40+ of settled cash needed for the first
   viable entry). `first_live_cycle_done` remains false: the first
   funded cycle validates data end-to-end without placing orders.
+
+## 2026-07-21 14:05 UTC — Morning run (scheduled)
+
+- **Broker access on scheduled fire: CONFIRMED.** The connector-loss
+  failure mode that killed the July 13 system did not recur.
+- Account value $40.05 ($0.39 settled cash, $39.66 crypto — up ~$0.97
+  since baseline on crypto drift). No equity positions, no open orders,
+  no exits to manage. Drawdown check: non-crypto value flat at $0.39.
+- No entry: buying power $0.39 is below any viable size. Idle by design.
+- Discovery scan "Autopilot Swing Candidates": 0 matches at 10:05 ET.
+  Tuning note: the relative-volume >1.2× (30-day) filter compares
+  partial-day volume against full-day averages, so it rarely passes
+  this early in the session. Harmless while discovery-only; consider
+  either running the scan later in the day or dropping the filter to
+  intraday interval when the account goes live.
+- Actions: none. Next scheduled run: 3:30 PM ET exit check (no-op
+  unless positions exist).
