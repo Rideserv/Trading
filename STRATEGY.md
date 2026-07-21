@@ -254,3 +254,34 @@ category. Reconciled against broker fills before anything counts.
   instead of bailing — profit-taking fear gets a mechanism, not a veto
 - Comfortable losing is okay; avoidance and rage-trading are not
 - The goal: prove process at $150 before scale ever gets discussed
+
+---
+
+## v1.1 AMENDMENTS (July 20, 2026 — reconciled with owner re-authorization)
+
+TRADING_PLAYBOOK.md is now the top-level entry point; where it and this
+file overlap, the most conservative rule wins. Changes from v1.0:
+
+1. **Account reality reset.** Equity is no longer $150 cash. As of
+   2026-07-20: $0.39 settled cash + $38.68 crypto (crypto is untradable
+   and invisible via MCP — owner-managed in the app). state/ files have
+   been reconciled to this. The system idles in monitor+log mode until
+   the account is funded enough to size a whole share inside the 2%/5%
+   risk rules.
+2. **Cadence: hourly → twice daily.** 10:00 AM ET full cycle (entries
+   allowed), 3:30 PM ET exit-management only. The daily-bar strategy was
+   designed to tolerate coarse scheduling; near-close entries from v1.0
+   are sacrificed for schedule simplicity until equity justifies more.
+3. **Position-cost cap added.** In addition to v1.0 risk sizing, a
+   position's cost may not exceed 50% of total account value
+   (owner-selected "Standard" profile).
+4. **Weekly drawdown pause added.** Equity down ≥ 10% over 5 trading
+   days → no new entries until recovered or owner reviews. This is in
+   addition to (not instead of) the v1.0 circuit breakers.
+5. **Supplementary scanner.** Saved Robinhood scan "Autopilot Swing
+   Candidates" (a0a9a49e-c941-4f11-8ac6-a28d6f1eccb9) runs for
+   discovery. Its hits are journal/watchlist material only — the fixed
+   universe list remains the only tradable set.
+6. **Branch rename.** All state commits now push to
+   `claude/robinhood-trading-tools-access-no4817` (the old
+   `claude/robinhood-trading-mcp-4vlevg` branch was merged in PR #3).

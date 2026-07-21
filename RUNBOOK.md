@@ -13,8 +13,11 @@ Account: 995042041 (Robinhood "Agentic"). Never touch any other account.
 
 ## Step 0 — Preconditions
 
-- `git pull origin claude/robinhood-trading-mcp-4vlevg` first: state files in
-  git are the durable memory; containers are ephemeral.
+- `git pull origin claude/robinhood-trading-tools-access-no4817` first: state
+  files in git are the durable memory; containers are ephemeral.
+- Read TRADING_PLAYBOOK.md — it is the top-level authority and carries the
+  current owner authorization, caps, and cadence (v1.1: twice daily, not
+  hourly; the 3:30 PM ET run is Steps 0-5 + 8 only, no new entries).
 - If Robinhood MCP tools are unavailable or unauthenticated: log one line to
   `state/run_log.txt` ("no broker connection"), commit, stop. Do NOT retry
   auth. Notify the owner ONLY if this is a new problem (wasn't the case on
@@ -135,8 +138,9 @@ first real order — agreed with the owner Jul 11.
 
 - Append one line to `state/run_log.txt`:
   `<UTC timestamp> | <flat|holding SYM> | <action taken or "no setups"> | <breaker state>`
-- `git add state/ && git commit -m "scan: <summary>" && git push -u origin
-  claude/robinhood-trading-mcp-4vlevg`
+- Append the same summary as a dated entry to `AUTOPILOT_LOG.md`.
+- `git add state/ AUTOPILOT_LOG.md && git commit -m "scan: <summary>" &&
+  git push -u origin claude/robinhood-trading-tools-access-no4817`
 - Notify the owner ONLY on: order fired, position closed, stop moved,
   breaker/suspension change, NEW problem. Otherwise stay silent.
 
