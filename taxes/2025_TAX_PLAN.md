@@ -1,6 +1,6 @@
 # RideServ LLC — 2025 Tax Filing Plan & Planning Memo
 
-**Prepared:** July 21, 2026
+**Prepared:** July 21, 2026 (rev. 2 — incorporates three third-party tax documents)
 **Entity:** RideServ LLC (Illinois LLC, EIN ••5908)
 **Scope:** Federal + Illinois 2025 filing, 1099 compliance, and forward planning
 **Status:** DRAFT — numbers are preliminary (missing statement months); not filing-ready
@@ -124,6 +124,82 @@ return is filed.
    out / $5,424 in still belongs on a tax return somewhere (Hayes's own
    Schedule E/C). Excluded-from-RideServ ≠ excluded-from-tax.
 
+## 4A. Third-party tax documents received (reviewed July 21, 2026)
+
+Three 2025 information returns were provided and reviewed. All monthly boxes
+tie exactly to their stated totals. **The IRS has copies of all three**, so
+the return's gross receipts must reconcile to them.
+
+### (a) 1099-NEC FROM DJD Legacy Holdings LLC — $15,542.20 — this is SONYA DROTTAR's LLC
+
+- Payer: DJD Legacy Holdings LLC, Sheridan WY (TIN 99-4422560); recipient
+  RideServ LLC (last-4 TIN matches), Box 1 nonemployee compensation
+  **$15,542.20**; also reported to Illinois (Box 7).
+- **Owner confirms DJD Legacy Holdings = Sonya Drottar's entity.** Her
+  payments are already in the books as "Sonya Drottar (Cash App)"
+  ($22,738.01 over 7 months), so this NEC is almost certainly an **overlap,
+  not new income** — she is running RideServ's services through her LLC and
+  1099-ing what the LLC paid.
+- **Do NOT add $15,542.20 on top of the Cash App figure** — that would
+  double-count. And no matching problem exists in the other direction:
+  recorded Sonya income ($22,738.01 partial-year, more once missing months
+  arrive) already exceeds the $15,542.20 the IRS will try to match.
+- **Still required:** a written reconciliation mapping DJD's $15,542.20 to
+  specific Cash App/Mercury deposits. Two reasons: (1) confirm none of
+  DJD's payments arrived through a channel that was never counted, and
+  (2) if the IRS ever asks why gross receipts ≠ sum of 1099s, the workpaper
+  is the answer. Also confirm whether her personal-name Cash App payments
+  vs. LLC payments split matters for her books — it doesn't change
+  RideServ's income (all of it is reportable), only the mapping.
+- Cosmetic: recipient name is misspelled ("RideServeLLC") and the address
+  (1123 E. Mason St) differs from the eBay/Stripe address (3309 Robbins Rd
+  #577). TIN matches, so no correction is required, but confirm with Sonya
+  that the full TIN on file is correct.
+
+### (b) Stripe 1099-K — gross $36,327.78 (979 transactions)
+
+- Compiled books show Stripe gross of $35,485.78 — the 1099-K is **$842.00
+  higher**. Box 1a is computed on *transaction dates*, while payouts lag,
+  so late-December charges paying out in January 2026 are the likely
+  explanation. Reconcile the $842 rather than assuming; the return's gross
+  receipts line must be ≥ $36,327.78 for Stripe activity.
+- Report the full $36,327.78 as gross receipts and deduct the ~$5,004.43 of
+  refunds/fees/credits (to reach the $31,323.35 net) as separate expense
+  lines. No withholding (Box 4 = $0).
+
+### (c) eBay 1099-K (Wheel N Deal) — gross $2,899.41 (35 transactions) — ⚠️ NOT IN THE BOOKS
+
+- Payee "RideServ LLC / Wheel N Deal," same EIN. Active Feb–Dec (no Jan/Jul
+  sales).
+- **Wheel N Deal sales revenue was entirely missing from the income
+  compilation** — the books captured its COGS ($2,198.00 + $308.14 + part
+  of Walmart) but zero sales. Add $2,899.41 to gross receipts.
+- eBay deducts selling fees before payout: pull the eBay financial statement
+  so the fees can be deducted (gross on the income line, fees as expense).
+- Note: eBay filed this despite being under the federal $20k threshold —
+  Illinois has a much lower state 1099-K threshold, so IL has a copy too.
+
+### Revised income floor after documents
+
+| Source | Books (before) | Per documents (after) |
+|---|---|---|
+| Stripe (gross) | $35,485.78 | **$36,327.78** |
+| eBay / Wheel N Deal | $0 | **$2,899.41** |
+| DJD Legacy Holdings (1099-NEC) | — | $15,542.20 — **overlaps Sonya Cash App; not added** |
+| Cash App clients (7 months) | $23,448.55 | $23,448.55 |
+| **Gross receipts floor** | ~$58,934 | **~$62,676** (still understated — missing months) |
+
+IRS document-matching check: the three 1099s total $54,769.39. Reported
+gross receipts (~$62,676 floor, higher after missing months) comfortably
+exceed that, so no matching mismatch — provided the DJD↔Sonya overlap
+workpaper exists to prove the mapping.
+
+Net-income effect of the documents themselves: **+~$2,899 gross from eBay**
+(less eBay selling fees once pulled) and the $842 Stripe timing item to
+reconcile. The DJD NEC adds no income if the overlap trace confirms; the
+preliminary net stays in the ~$25–28k band pending the missing Cash App
+months and the $13,175 contract-labor resolution.
+
 ## 5. Expense side — the four items that move the number
 
 1. **Generic "Contract labor" $13,175.51 — resolve before anything else.**
@@ -217,6 +293,9 @@ owner's 1040 — not to RideServ — unless the account is retitled to the LLC.
 | 3 | Engage CPA: partner-vs-disregarded-entity determination (§2) | Chase | This week |
 | 4 | Engage benefits attorney re: Carolyn / SSI | Chase | Before filing |
 | 5 | Pull missing statements: Cash App Jan–Apr + Jul, Mercury Oct | Chase | ASAP |
+| 5a | Workpaper mapping DJD/Sonya 1099-NEC ($15,542.20) to Cash App/Mercury deposits | Chase | Before filing |
+| 5b | Add eBay/Wheel N Deal sales ($2,899.41) to books; pull eBay fee statement | Chase | Before filing |
+| 5c | Reconcile $842.00 Stripe gap (1099-K $36,327.78 vs books $35,485.78 — likely Dec payout timing) | Chase | Before filing |
 | 6 | Reconcile $13,175.51 contract-labor bucket to transactions | Chase/CPA | Before filing |
 | 7 | Resolve "wages" $1,118.80 (employee vs. draw) | CPA | Before filing |
 | 8 | Pull platform mileage reports; run standard-vs-actual comparison | Chase | Before filing |
