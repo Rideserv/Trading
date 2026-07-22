@@ -61,3 +61,9 @@ entries at the bottom. Every scheduled run appends here and pushes.
   at this hour due to the partial-day relative-volume filter; no new
   information to gain until that's retuned or the account is funded.
 - Actions: none. Day 2 idle awaiting funding.
+
+## 2026-07-22 19:35 UTC — Afternoon run (scheduled)
+
+- Exit-management check: no equity positions, no open or unfilled
+  orders today. Nothing to manage.
+- Actions: none. Still idle awaiting funding ($0.39 settled cash).
