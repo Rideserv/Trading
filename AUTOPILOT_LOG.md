@@ -50,3 +50,14 @@ entries at the bottom. Every scheduled run appends here and pushes.
 - Actions: none. Account unchanged from morning run ($0.39 settled
   cash; still awaiting funding). Broker access on scheduled fire
   confirmed again.
+
+## 2026-07-22 14:05 UTC — Morning run (scheduled)
+
+- Account value $39.52 ($0.39 settled cash, $39.13 crypto — down ~$0.53
+  from yesterday on crypto drift). No equity positions, no orders.
+- Exits: none to manage. Drawdown check: non-crypto value flat at
+  $0.39. Entry: skipped, buying power below $5 floor.
+- Discovery scan skipped this run — yesterday established it returns 0
+  at this hour due to the partial-day relative-volume filter; no new
+  information to gain until that's retuned or the account is funded.
+- Actions: none. Day 2 idle awaiting funding.
