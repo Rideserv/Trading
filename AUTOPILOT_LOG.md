@@ -67,3 +67,10 @@ entries at the bottom. Every scheduled run appends here and pushes.
 - Exit-management check: no equity positions, no open or unfilled
   orders today. Nothing to manage.
 - Actions: none. Still idle awaiting funding ($0.39 settled cash).
+
+## 2026-07-23 14:05 UTC — Morning run (scheduled)
+
+- Account value $38.85 ($0.39 settled cash, $38.46 crypto). No equity
+  positions, no orders. Exits: none. Drawdown: non-crypto flat at
+  $0.39. Entry: skipped, buying power below $5 floor.
+- Actions: none. Day 3 idle awaiting funding.
