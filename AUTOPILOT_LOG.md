@@ -80,3 +80,14 @@ entries at the bottom. Every scheduled run appends here and pushes.
 - Exit-management check: no equity positions, no open or unfilled
   orders today. Nothing to manage.
 - Actions: none. Still idle awaiting funding ($0.39 settled cash).
+
+## 2026-07-24 14:05 UTC — Morning run (scheduled) — Week 1 wrap
+
+- Account value $38.37 ($0.39 settled cash, $37.98 crypto). No equity
+  positions, no orders. Exits: none. Drawdown: non-crypto flat at
+  $0.39. Entry: skipped, buying power below $5 floor.
+- Week 1 summary: system healthy — all 7 scheduled runs fired with
+  broker access, state persisted through container restarts. Zero
+  trades (unfunded). Crypto drifted $38.68 → $37.98 (−1.8% on week,
+  peak $39.66 Jul 21).
+- Actions: none. Day 4 idle awaiting funding.
