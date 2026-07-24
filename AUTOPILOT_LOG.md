@@ -91,3 +91,10 @@ entries at the bottom. Every scheduled run appends here and pushes.
   trades (unfunded). Crypto drifted $38.68 → $37.98 (−1.8% on week,
   peak $39.66 Jul 21).
 - Actions: none. Day 4 idle awaiting funding.
+
+## 2026-07-24 19:35 UTC — Afternoon run (scheduled)
+
+- Exit-management check: no equity positions, no open or unfilled
+  orders today. Nothing to manage.
+- Actions: none. Week 1 closes fully idle; offered the owner a pause
+  of the routines if funding isn't near-term.
