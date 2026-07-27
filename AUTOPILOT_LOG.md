@@ -98,3 +98,16 @@ entries at the bottom. Every scheduled run appends here and pushes.
   orders today. Nothing to manage.
 - Actions: none. Week 1 closes fully idle; offered the owner a pause
   of the routines if funding isn't near-term.
+
+## 2026-07-27 14:05 UTC — Morning run (scheduled) — ATTENTION
+
+- **Account value $20.45, down from $38.37 at Friday's run (−47%).**
+  All of it happened outside the agent's view/control over the weekend:
+  cash went $0.39 → $0.00 (spent or transferred owner-side) and the
+  crypto holding went $37.98 → $20.45. No agent orders exist; equity
+  positions and orders remain empty. Crypto detail is invisible via
+  MCP, so cause (market move vs. owner trades vs. withdrawal) is
+  unknown from here.
+- Exits: none to manage. Entry: impossible, buying power $0.00.
+- Flagged to owner in the run report. Trading-side state unchanged;
+  system remains monitor+log only.
