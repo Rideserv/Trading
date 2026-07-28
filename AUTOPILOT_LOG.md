@@ -119,3 +119,11 @@ entries at the bottom. Every scheduled run appends here and pushes.
 - Actions: none. Morning's attention item stands: account value ~$20
   after the weekend's owner-side crypto decline; buying power $0.00.
   No owner response yet.
+
+## 2026-07-28 14:05 UTC — Morning run (scheduled)
+
+- Account value $19.82 (all crypto; cash $0.00). No equity positions,
+  no orders. Exits: none. Entry: impossible, buying power $0.00.
+- Crypto continued drifting down ($20.45 → $19.82 since yesterday).
+  Yesterday's attention flag stands; no owner response yet.
+- Actions: none.
