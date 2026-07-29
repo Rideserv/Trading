@@ -85,3 +85,4 @@
 2026-07-29T14:34:53Z | flat | scheduled scan cycle: no broker access (RobinHood connected but enabledInChat=false) | breaker clear, mode=live
 2026-07-29T15:35:10Z | flat | scheduled scan cycle: no broker access (RobinHood connected but enabledInChat=false, unchanged) | breaker clear, mode=live
 2026-07-29T16:34:49Z | flat | scheduled scan cycle: no broker access (RobinHood connected but enabledInChat=false, unchanged) | breaker clear, mode=live
+2026-07-29T17:34:51Z | flat | scheduled scan cycle: no broker access (RobinHood connected but enabledInChat=false, unchanged) | breaker clear, mode=live
