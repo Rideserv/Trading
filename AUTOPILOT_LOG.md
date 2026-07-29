@@ -134,3 +134,11 @@ entries at the bottom. Every scheduled run appends here and pushes.
   orders today. Nothing to manage.
 - Actions: none. Still $0.00 buying power; equity autopilot dormant
   pending owner funding decision.
+
+## 2026-07-29 14:05 UTC — Morning run (scheduled)
+
+- Account value $20.21 (all crypto; cash $0.00). No equity positions,
+  no orders. Exits: none. Entry: impossible, buying power $0.00.
+- Crypto ticked up slightly ($19.82 → $20.21). Attention flag from
+  Jul 27 stands; still no owner response.
+- Actions: none. Day 7 with zero tradable cash.
